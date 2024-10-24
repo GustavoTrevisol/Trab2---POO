@@ -12,12 +12,18 @@ public class App {
     // Atributos para redirecionamento de E/S
     private Scanner entrada = new Scanner(System.in); // Atributo para entrada padrao (teclado)
     private PrintStream saidaPadrao = System.out; // Guarda a saida padrao - tela (console)
-    private final String nomeArquivoEntrada = "entrada.txt"; // Nome do arquivo de entrada de dados
-    private final String nomeArquivoSaida = "saida.txt"; // Nome do arquivo de saida de dados
+    private final String nomeArquivoEntrada = "input.txt"; // Nome do arquivo de entrada de dados
+    private final String nomeArquivoSaida = "output.txt"; // Nome do arquivo de saida de dados
 
     public App() {
         redirecionaEntrada(); // Redireciona Entrada para arquivos
         redirecionaSaida(); // Redireciona Saida para arquivos
+    }
+
+    public void executar(){
+        redirecionaEntrada(); // Redireciona Entrada para arquivos
+
+
     }
 
     // Redireciona Entrada de dados para arquivos em vez de teclado
