@@ -8,7 +8,7 @@ public class ACMEVideos {
 	private Acervo acervo;
 
 	public void processar() {
-
+		int a = 1 + 2;
 	}
 
 }
