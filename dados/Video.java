@@ -3,7 +3,6 @@ package dados;
 public abstract class Video implements Imprimivel {
 
 	private int codigo;
-
 	private String titulo;
 
 	/**

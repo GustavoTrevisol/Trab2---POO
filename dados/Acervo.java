@@ -1,10 +1,10 @@
 package dados;
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 public class Acervo {
 
-	private Collection<Video> video;
+	private ArrayList<Video> video;
 
 	public boolean addVideo(Video v) {
 		return false;
