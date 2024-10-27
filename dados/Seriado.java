@@ -8,7 +8,20 @@ public class Seriado extends Video {
 
 	public Seriado(int codigo, String titulo, int anoInicio, int anoFim, int numEpisodios){
 		super(codigo, titulo);
+		this.anoInicio = anoInicio;
+		this.anoFim = anoFim;
+		this.numEpisodios = numEpisodios;
 	}
+
+	// @Override
+	// public int getCodigo() {
+	// 	return super.getCodigo();
+	// }
+
+	// @Override
+	// public String getTitulo() {
+	// 	return super.getTitulo();
+	// }
 
 	public int getAnoFim() {
 		return anoFim;
@@ -28,8 +41,10 @@ public class Seriado extends Video {
 	}
 
 	public String geraTexto(){
-		return getCodigo() + "-" + getTitulo() + "-" + anoInicio + "-" + anoFim + "-" + numEpisodios;
+		return "1:" + getCodigo() + "-" + getTitulo() + "-" + anoInicio + "-" + anoFim + "-" + numEpisodios;
 	}
+
+	
 
 
 }

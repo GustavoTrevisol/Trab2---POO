@@ -26,10 +26,11 @@ public class ACMEVideos {
     }
 
     public void processar() {
-		redirecionaEntrada();
-		
-		Acervo a1 = new Acervo();
+        redirecionaEntrada();
 
+        Acervo acervo = new Acervo();
+
+        // 1 - Cadastro dos videos
         try (BufferedReader reader = new BufferedReader(new FileReader("input.txt"))) {
             String dadosVideo = entrada.nextLine();
 
@@ -38,39 +39,58 @@ public class ACMEVideos {
 
                 String[] parteLinha = dadosVideo.split(";");
                 int tipo = Integer.parseInt(parteLinha[0]);
-                if(tipo == 1){
+                if (tipo == 1) {
                     int codigo = Integer.parseInt(parteLinha[1]);
                     String titulo = parteLinha[2];
                     String diretor = parteLinha[3];
                     double duracao = Double.parseDouble(parteLinha[4]);
-                    Filme f1 = new Filme(codigo, titulo, diretor, duracao);
-                    a1.addVideo(f1);
+                    Filme filme = new Filme(codigo, titulo, diretor, duracao);
+                    if (acervo.addVideo(filme)) {
+                        System.out.println(filme.geraTexto() + "-" + filme.calculaCusto());
+                    } else {
+                        System.out.println("1: Erro - codigo de video repetido.");
+                    }
                 }
 
-                else if(tipo == 2){
+                else if (tipo == 2) {
                     int codigo = Integer.parseInt(parteLinha[1]);
                     String titulo = parteLinha[2];
                     int anoInicio = Integer.parseInt(parteLinha[3]);
                     int anoFim = Integer.parseInt(parteLinha[4]);
                     int numEpisodios = Integer.parseInt(parteLinha[5]);
-                    Seriado s1 = new Seriado(codigo, titulo, anoInicio, anoFim, numEpisodios);
-                    a1.addVideo(s1);
+                    Seriado seriado = new Seriado(codigo, titulo, anoInicio, anoFim, numEpisodios);
+                    if (acervo.addVideo(seriado)) {
+                        System.out.println(seriado.geraTexto() + "-" + seriado.calculaCusto());
+                    } else {
+                        System.out.println("1: Erro - codigo de video repetido.");
+                    }
                 }
-
-                
-                
             }
-            
-        } 
-        
+            reader.close();
+
+            // 2 - metodo que retorna o maior titulo
+            if (acervo.maiorTitulo() != null) {
+                System.out.println("2:" + acervo.maiorTitulo().getCodigo() + "-" + acervo.maiorTitulo().getTitulo());
+            } else {
+                System.out.println("2:Erro - nenhum vídeo cadastrado.");
+            }
+
+            // 3 - metodo que retorna menor custo
+
+            if (acervo.custoMaisBaixo() != null) {
+                System.out.println("3:" + acervo.custoMaisBaixo().getCodigo() + "-"
+                        + acervo.custoMaisBaixo().getTitulo() + "-" + acervo.custoMaisBaixo().calculaCusto());
+            } else {
+                System.out.println("3:Erro - nenhum video cadastrado.");
+            }
+
+        }
+
         catch (IOException e) {
             e.printStackTrace();
         }
 
-
-
-
-	}
+    }
 
     private void redirecionaEntrada() {
         try {
