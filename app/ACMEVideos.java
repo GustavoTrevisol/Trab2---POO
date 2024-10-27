@@ -84,6 +84,15 @@ public class ACMEVideos {
                 System.out.println("3:Erro - nenhum video cadastrado.");
             }
 
+            // 4 - Seriado com maior tempo de exibicao
+
+            if(acervo.seriadoComMaiorExibicao() != null){
+                System.out.println("4:" + acervo.seriadoComMaiorExibicao().getCodigo() + "-" + acervo.seriadoComMaiorExibicao().getTitulo() + "-" + acervo.seriadoComMaiorExibicao().tempoExibicao());
+            }
+            else{
+                System.out.println("4:Erro - nenhum seriado cadastrado.");
+            }
+
         }
 
         catch (IOException e) {

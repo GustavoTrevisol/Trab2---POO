@@ -59,4 +59,25 @@ public class Acervo {
 		return videoComMenorCusto;
 	}
 
+	
+
+	public Seriado seriadoComMaiorExibicao(){
+		
+		Seriado seriadoComMaiorExibicao = null;
+		if (video.isEmpty()) {
+			return null;
+	   }
+
+	   for(Video v1 : video){
+		if(v1 instanceof Seriado){
+			Seriado seriado = (Seriado) v1;
+			if (seriadoComMaiorExibicao == null || 
+                    seriado.tempoExibicao() > seriadoComMaiorExibicao.tempoExibicao()) {
+                    seriadoComMaiorExibicao = seriado;
+                }
+		}
+	   }
+		return seriadoComMaiorExibicao;
+	}
+
 }
