@@ -20,6 +20,10 @@ public class Filme extends Video {
 		return duracao;
 	}
 
+	public String geraTexto(){
+		return getCodigo() + "-" + getTitulo() + "-" + diretor + "-" + duracao;
+	}
+
 	@Override
 	public double calculaCusto() {
 		return duracao * 0.30;

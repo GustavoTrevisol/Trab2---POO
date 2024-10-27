@@ -10,9 +10,14 @@ public abstract class Video implements Imprimivel {
 		this.titulo = titulo;
 	}
 
-
-	public String geraTexto() {
-		return "-";
+	public int getCodigo(){
+		return codigo;
 	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	
 
 }

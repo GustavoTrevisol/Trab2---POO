@@ -27,5 +27,9 @@ public class Seriado extends Video {
 		return numEpisodios * 0.50;
 	}
 
+	public String geraTexto(){
+		return getCodigo() + "-" + getTitulo() + "-" + anoInicio + "-" + anoFim + "-" + numEpisodios;
+	}
+
 
 }
