@@ -93,6 +93,12 @@ public class ACMEVideos {
                 System.out.println("4:Erro - nenhum seriado cadastrado.");
             }
 
+            // 5 - Diretor com mais filmes
+
+            if(acervo.diretorComMaisFilmes() != null){
+                System.out.println("5:" + acervo.diretorComMaisFilmes() + "-" + acervo.contarFilmesPorDiretor(acervo.diretorComMaisFilmes()));
+            }
+
         }
 
         catch (IOException e) {

@@ -1,6 +1,9 @@
 package dados;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Acervo {
 
@@ -64,9 +67,6 @@ public class Acervo {
 	public Seriado seriadoComMaiorExibicao(){
 		
 		Seriado seriadoComMaiorExibicao = null;
-		if (video.isEmpty()) {
-			return null;
-	   }
 
 	   for(Video v1 : video){
 		if(v1 instanceof Seriado){
@@ -78,6 +78,48 @@ public class Acervo {
 		}
 	   }
 		return seriadoComMaiorExibicao;
+	}
+
+	public String diretorComMaisFilmes(){
+		
+		HashMap<String, Integer> contagemDiretores = new HashMap<>();
+		if (video.isEmpty()){
+			return null;
+	   }
+
+	   for(Video v1 : video){
+		if(v1 instanceof Filme){
+			Filme filme = (Filme) v1;
+			String diretor = filme.getDiretor();
+			contagemDiretores.put(diretor, contagemDiretores.getOrDefault(diretor, 0) + 1);
+		}
+	   }
+	   String diretorMaisFamoso = null;
+        int maiorQuantidade = 0;
+
+        for (Map.Entry<String, Integer> entry : contagemDiretores.entrySet()) {
+            if (entry.getValue() > maiorQuantidade) {
+                maiorQuantidade = entry.getValue();
+                diretorMaisFamoso = entry.getKey();
+            }
+        }
+
+        return diretorMaisFamoso;
+	}
+
+	public int contarFilmesPorDiretor(String diretor) {
+        int contador = 0;
+
+        for (Video v : video) {
+            if (v instanceof Filme) {
+                Filme filme = (Filme) v;
+                if (filme.getDiretor().equals(diretor)) {
+                    contador++;
+                }
+            }
+        }
+
+        return contador;
 	}
 
 }
