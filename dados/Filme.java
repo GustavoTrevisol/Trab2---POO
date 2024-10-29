@@ -12,16 +12,6 @@ public class Filme extends Video {
 
 	}
 
-	// @Override
-	// public int getCodigo(){
-	// 	return super.getCodigo();
-	// }
-
-	// @Override
-	// public String getTitulo(){
-	// 	return super.getTitulo();
-	// }
-
 	public String getDiretor() {
 		return diretor;
 	}
@@ -36,8 +26,12 @@ public class Filme extends Video {
 	}
 	
 	public String geraTexto(){
-		return "1:" + getCodigo() + "-" + getTitulo() + "-" + diretor + "-" + duracao;
+		return "1:" + getCodigo() + "-" + getTitulo() + "-" + diretor + "-" + String.format("%.2f", duracao);
 	}
+
+	// public String geraTexto(){
+	// 	return String.format("1: ", getCodigo(), getTitulo(), diretor, duracao);
+	// }
 
 	
 

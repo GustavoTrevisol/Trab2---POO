@@ -46,7 +46,7 @@ public class ACMEVideos {
                     double duracao = Double.parseDouble(parteLinha[4]);
                     Filme filme = new Filme(codigo, titulo, diretor, duracao);
                     if (acervo.addVideo(filme)) {
-                        System.out.println(filme.geraTexto() + "-" + filme.calculaCusto());
+                        System.out.println(filme.geraTexto() + "-" + String.format("%.2f", filme.calculaCusto()));
                     } else {
                         System.out.println("1: Erro - codigo de video repetido.");
                     }
@@ -60,7 +60,7 @@ public class ACMEVideos {
                     int numEpisodios = Integer.parseInt(parteLinha[5]);
                     Seriado seriado = new Seriado(codigo, titulo, anoInicio, anoFim, numEpisodios);
                     if (acervo.addVideo(seriado)) {
-                        System.out.println(seriado.geraTexto() + "-" + seriado.calculaCusto());
+                        System.out.println(seriado.geraTexto() + "-" + String.format("%.2f", seriado.calculaCusto()));
                     } else {
                         System.out.println("1: Erro - codigo de video repetido.");
                     }
@@ -101,8 +101,10 @@ public class ACMEVideos {
 
         }
 
-        catch (IOException e) {
+        catch (IOException  | ArrayIndexOutOfBoundsException e) {
+            System.out.println("oi");
             e.printStackTrace();
+            
         }
 
     }

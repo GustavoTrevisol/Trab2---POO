@@ -41,12 +41,12 @@ public class Seriado extends Video {
 	}
 
 	public int tempoExibicao(){
-		return anoFim - anoInicio;
+		return anoFim - anoInicio + 1;
 	}
 
 	@Override
 	public String geraTexto(){
-		return "1:" + getCodigo() + "-" + getTitulo() + "-" + anoInicio + anoFim + numEpisodios;
+		return "1:" + getCodigo() + "-" + getTitulo() + "-" + anoInicio + "-" + anoFim + "-" + numEpisodios;
 	}
 
 }
