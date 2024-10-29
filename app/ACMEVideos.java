@@ -27,87 +27,87 @@ public class ACMEVideos {
 
     public void processar() {
         redirecionaEntrada();
-
+    
         Acervo acervo = new Acervo();
-
+    
         // 1 - Cadastro dos videos
         try (BufferedReader reader = new BufferedReader(new FileReader("input.txt"))) {
-            String dadosVideo = entrada.nextLine();
-
+            String dadosVideo;
+    
             while ((dadosVideo = reader.readLine()) != null) {
-                // Processa a linha lida, por exemplo, cadastrar um item
-
-                String[] parteLinha = dadosVideo.split(";");
-                int tipo = Integer.parseInt(parteLinha[0]);
-                if (tipo == 1) {
-                    int codigo = Integer.parseInt(parteLinha[1]);
-                    String titulo = parteLinha[2];
-                    String diretor = parteLinha[3];
-                    double duracao = Double.parseDouble(parteLinha[4]);
-                    Filme filme = new Filme(codigo, titulo, diretor, duracao);
-                    if (acervo.addVideo(filme)) {
-                        System.out.println(filme.geraTexto() + "-" + String.format("%.2f", filme.calculaCusto()));
+                try {
+                    String[] parteLinha = dadosVideo.split(";");
+                    int tipo = Integer.parseInt(parteLinha[0]);
+    
+                    if (tipo == 1 && parteLinha.length == 5) {
+                        int codigo = Integer.parseInt(parteLinha[1]);
+                        String titulo = parteLinha[2];
+                        String diretor = parteLinha[3];
+                        double duracao = Double.parseDouble(parteLinha[4].replace(",", "."));
+                        Filme filme = new Filme(codigo, titulo, diretor, duracao);
+    
+                        if (acervo.addVideo(filme)) {
+                            System.out.println(filme.geraTexto() + "-" + String.format("%.2f", filme.calculaCusto()));
+                        } else {
+                            System.out.println("1: Erro - codigo de video repetido.");
+                        }
+                    } else if (tipo == 2 && parteLinha.length == 6) {
+                        int codigo = Integer.parseInt(parteLinha[1]);
+                        String titulo = parteLinha[2];
+                        int anoInicio = Integer.parseInt(parteLinha[3]);
+                        int anoFim = Integer.parseInt(parteLinha[4]);
+                        int numEpisodios = Integer.parseInt(parteLinha[5]);
+                        Seriado seriado = new Seriado(codigo, titulo, anoInicio, anoFim, numEpisodios);
+    
+                        if (acervo.addVideo(seriado)) {
+                            System.out.println(seriado.geraTexto() + "-" + String.format("%.2f", seriado.calculaCusto()));
+                        } else {
+                            System.out.println("1: Erro - codigo de video repetido.");
+                        }
                     } else {
-                        System.out.println("1: Erro - codigo de video repetido.");
+                        System.out.println();
                     }
-                }
-
-                else if (tipo == 2) {
-                    int codigo = Integer.parseInt(parteLinha[1]);
-                    String titulo = parteLinha[2];
-                    int anoInicio = Integer.parseInt(parteLinha[3]);
-                    int anoFim = Integer.parseInt(parteLinha[4]);
-                    int numEpisodios = Integer.parseInt(parteLinha[5]);
-                    Seriado seriado = new Seriado(codigo, titulo, anoInicio, anoFim, numEpisodios);
-                    if (acervo.addVideo(seriado)) {
-                        System.out.println(seriado.geraTexto() + "-" + String.format("%.2f", seriado.calculaCusto()));
-                    } else {
-                        System.out.println("1: Erro - codigo de video repetido.");
-                    }
+    
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+        
                 }
             }
-            reader.close();
-
-            // 2 - metodo que retorna o maior titulo
-            if (acervo.maiorTitulo() != null) {
-                System.out.println("2:" + acervo.maiorTitulo().getCodigo() + "-" + acervo.maiorTitulo().getTitulo());
-            } else {
-                System.out.println("2:Erro - nenhum vídeo cadastrado.");
-            }
-
-            // 3 - metodo que retorna menor custo
-
-            if (acervo.custoMaisBaixo() != null) {
-                System.out.println("3:" + acervo.custoMaisBaixo().getCodigo() + "-"
-                        + acervo.custoMaisBaixo().getTitulo() + "-" + acervo.custoMaisBaixo().calculaCusto());
-            } else {
-                System.out.println("3:Erro - nenhum video cadastrado.");
-            }
-
-            // 4 - Seriado com maior tempo de exibicao
-
-            if(acervo.seriadoComMaiorExibicao() != null){
-                System.out.println("4:" + acervo.seriadoComMaiorExibicao().getCodigo() + "-" + acervo.seriadoComMaiorExibicao().getTitulo() + "-" + acervo.seriadoComMaiorExibicao().tempoExibicao());
-            }
-            else{
-                System.out.println("4:Erro - nenhum seriado cadastrado.");
-            }
-
-            // 5 - Diretor com mais filmes
-
-            if(acervo.diretorComMaisFilmes() != null){
-                System.out.println("5:" + acervo.diretorComMaisFilmes() + "-" + acervo.contarFilmesPorDiretor(acervo.diretorComMaisFilmes()));
-            }
-
-        }
-
-        catch (IOException  | ArrayIndexOutOfBoundsException e) {
-            System.out.println("oi");
+        } catch (IOException e) {
             e.printStackTrace();
-            
         }
-
+    
+        // 2 - metodo que retorna o maior titulo
+        if (acervo.maiorTitulo() != null) {
+            System.out.println("2:" + acervo.maiorTitulo().getCodigo() + "-" + acervo.maiorTitulo().getTitulo());
+        } else {
+            System.out.println("2:Erro - nenhum vídeo cadastrado.");
+        }
+    
+        // 3 - metodo que retorna menor custo
+        if (acervo.custoMaisBaixo() != null) {
+            System.out.println("3:" + acervo.custoMaisBaixo().getCodigo() + "-"
+                    + acervo.custoMaisBaixo().getTitulo() + "-" + acervo.custoMaisBaixo().calculaCusto());
+        } else {
+            System.out.println("3:Erro - nenhum vídeo cadastrado.");
+        }
+    
+        // 4 - Seriado com maior tempo de exibicao
+        if (acervo.seriadoComMaiorExibicao() != null) {
+            System.out.println("4:" + acervo.seriadoComMaiorExibicao().getCodigo() + "-"
+                    + acervo.seriadoComMaiorExibicao().getTitulo() + "-" + acervo.seriadoComMaiorExibicao().tempoExibicao());
+        } else {
+            System.out.println("4:Erro - nenhum seriado cadastrado.");
+        }
+    
+        // 5 - Diretor com mais filmes
+        if (acervo.diretorComMaisFilmes() != null) {
+            System.out.println("5:" + acervo.diretorComMaisFilmes() + "-"
+                    + acervo.contarFilmesPorDiretor(acervo.diretorComMaisFilmes()));
+        } else {
+            System.out.println("5:Erro - nenhum filme cadastrado.");
+        }
     }
+    
 
     private void redirecionaEntrada() {
         try {
